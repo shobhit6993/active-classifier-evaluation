@@ -1,0 +1,4 @@
+Things that might differ in implementation on real classifiers
+- predict function
+    + in simulation, predict takes as arg the target (gold label)
+    + in real classifier, predict function will take as arg the item
