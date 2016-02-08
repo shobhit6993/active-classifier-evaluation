@@ -6,8 +6,8 @@ class ExponentialClassifierSim(object):
     an exponential distribution.
     
     Attributes:
-        accuracy (float64): Accuracy of the classifier.
-        beta (float64): param for exponential distribution, with mean = beta.
+        accuracy (float): Accuracy of the classifier.
+        beta (float): param for exponential distribution, with mean = beta.
         mode (string): 'dense_high_scorers' to favor high accuracy classifier.
             'dense_low_scorers' to favor low accuracy classifier.
     """
@@ -15,7 +15,9 @@ class ExponentialClassifierSim(object):
         self.beta = beta
         self.mode = mode
         self.accuracy = self.__generate_accuracy()
+        self.predicted_label = []
         self.estimated_accuracy = 0.0
+        self.num_correct_predictions = 0
         print self.accuracy
 
     def __generate_accuracy(self):
@@ -26,7 +28,7 @@ class ExponentialClassifierSim(object):
         (1-generated_accuracy) is set as accuracy if mode is dense_high_scorers.
         
         Returns:
-            float64: Accuracy of the classifier.
+            float: Accuracy of the classifier.
         """
         v = numpy.random.exponential(self.beta)
         while v > 1.0:
@@ -38,9 +40,10 @@ class ExponentialClassifierSim(object):
             return v
 
     def predict(self, target):
-        """Returns predictions for the classifier. Since this is a simulated
-        classifier, amusingly, the predict function takes as argument the 
-        gold labels.
+        """Computes label predictions for the classifier and saves them in 
+        predicted_label attribute. Since this is a simulated classifier, 
+        amusingly, the predict function takes as argument the 
+        gold labels. 
         
         Args:
             target (list): List of gold labels for the dataset of items.
@@ -53,9 +56,7 @@ class ExponentialClassifierSim(object):
         for t in target:
             v = bernoulli.rvs(self.accuracy)
             if v == 1:   # success
-                prediction.append(t)
+                self.predicted_label.append(t)
             else:       # failure
-                prediction.append((t+1) % 2)
-
-        return prediction
+                self.predicted_label.append((t+1) % 2)
         # return bernoulli.rvs(self.accuracy, size=len(features)).tolist()
