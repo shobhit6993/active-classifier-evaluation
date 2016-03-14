@@ -4,3 +4,7 @@ Things that might differ in implementation on real classifiers
     + in real classifier, predict function will take as arg the item
 
 - keep or remove num_seed?
+
+- vectorize code for get max disgreement and top disagreement
+- bug in code for the case when num_clf is a multiple of num_classes
+- memory issues

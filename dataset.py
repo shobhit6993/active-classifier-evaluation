@@ -8,13 +8,13 @@ class DatasetSim(object):
         gold_requested (dict): Map of Index of item -> obtained gold label. 
         mode (str): Simulation mode. 'uniform' for uniformly generated
             target labels.
-        num_items (int): Number of items in the simulated dataset.
+        num_egs (int): Number of examples in the simulated dataset.
         target (List[int]): Target labels.
     """
-    def __init__(self, num_items, mode):
-        self.num_items = num_items
+    def __init__(self, num_egs, mode):
+        self.num_egs = num_egs
         self.mode = mode
-        self.data = [0] * num_items     #TODO(Shobhit): Create Item class
+        self.data = [0] * num_egs     #TODO(Shobhit): Create Example class
         self.target = self.__generate_target_labels(mode)
         self.gold_requested = {}
         # self.crowd_requested = 
@@ -40,7 +40,7 @@ class DatasetSim(object):
             List[int]: List of synthetically generated target labels.
         """
         gold_label = []
-        for i in xrange(0, self.num_items):
+        for i in xrange(0, self.num_egs):
             r = numpy.random.uniform(0,1)
             gold_label.append(1 if r >= 0.5 else 0)
 

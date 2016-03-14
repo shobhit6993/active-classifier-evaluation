@@ -18,7 +18,6 @@ class ExponentialClassifierSim(object):
         self.predicted_label = []
         self.estimated_accuracy = 0.0
         self.num_correct_predictions = 0
-        print self.accuracy
 
     def __generate_accuracy(self):
         """Generates accuracy for the classifier
@@ -42,8 +41,7 @@ class ExponentialClassifierSim(object):
     def predict(self, target):
         """Computes label predictions for the classifier and saves them in 
         predicted_label attribute. Since this is a simulated classifier, 
-        amusingly, the predict function takes as argument the 
-        gold labels. 
+        the predict function, amusingly, takes as argument the gold labels. 
         
         Args:
             target (list): List of gold labels for the dataset of items.
@@ -51,7 +49,6 @@ class ExponentialClassifierSim(object):
         Returns:
             list: Predictions for the classifier..
         """
-        # TODO(Shobhit): Check with Matt if this is the right way
         prediction = []
         for t in target:
             v = bernoulli.rvs(self.accuracy)
@@ -59,4 +56,3 @@ class ExponentialClassifierSim(object):
                 self.predicted_label.append(t)
             else:       # failure
                 self.predicted_label.append((t+1) % 2)
-        # return bernoulli.rvs(self.accuracy, size=len(features)).tolist()
